@@ -4,7 +4,7 @@ const generateDailyData = (startDate: Date, days: number): ReportData[] => {
   return Array.from({ length: days }, (_, i) => ({
     date: new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000),
     count: Math.floor(Math.random() * 50) + 10,
-    location: ['Paris', 'Lyon', 'Marseille'][Math.floor(Math.random() * 3)],
+    location: ['Dakar', 'Louga', 'Thies'][Math.floor(Math.random() * 3)],
     status: ['assigned', 'pending', 'invalid'][Math.floor(Math.random() * 3)],
   }));
 };
@@ -38,7 +38,7 @@ export const mockReports: Report[] = [
     period: { start: new Date('2024-01-01'), end: new Date('2024-01-31') },
     type: 'attribution',
     data: generateDailyData(new Date('2024-01-01'), 31),
-    filters: { status: ['assigned', 'pending', 'invalid'], location: ['Paris', 'Lyon', 'Marseille'], operator: ['Operator1'] },
+    filters: { status: ['assigned', 'pending', 'invalid'], location: ['Dakar', 'Louga', 'Thies'], operator: ['Operator1'] },
   },
   {
     id: 'REP002',
@@ -46,6 +46,6 @@ export const mockReports: Report[] = [
     period: { start: new Date('2024-01-01'), end: new Date('2024-01-31') },
     type: 'error',
     data: generateErrorReports(),
-    filters: { location: ['Paris', 'Lyon', 'Marseille'], operator: ['Operator1'] },
+    filters: { location: ['Dakar', 'Louga', 'Thies'], operator: ['Operator1'] },
   },
 ];
