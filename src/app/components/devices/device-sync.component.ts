@@ -79,164 +79,159 @@ import { Device, DeviceSync } from '../../models/device.model';
   styles: [`
     .sync-page {
       padding: 20px 20px 20px 270px;
-    }
+  background-color: #f4f6f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
 
-    .sync-overview {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-bottom: 30px;
-    }
+h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #34495e;
+}
 
-    .overview-card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+.sync-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
 
-    .overview-card h3 {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+.overview-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .large-number {
-      font-size: 36px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
+.overview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-    .timestamp {
-      font-size: 18px;
-      color: #2c3e50;
-    }
+.overview-card h3 {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
 
-    .percentage {
-      font-size: 24px;
-      font-weight: bold;
-      color: #27ae60;
-    }
+.large-number {
+  font-size: 40px;
+  font-weight: bold;
+  color: #2980b9;
+}
 
-    .sync-list {
-      display: grid;
-      gap: 15px;
-    }
+.percentage {
+  font-size: 32px;
+  color: #27ae60;
+  font-weight: bold;
+}
 
-    .sync-item {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+.timestamp {
+  font-size: 18px;
+  color: #7f8c8d;
+}
 
-    .sync-item.failed {
-      border-left: 4px solid #e74c3c;
-    }
+.sync-list {
+  display: grid;
+  gap: 20px;
+}
 
-    .sync-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
+.sync-item {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .sync-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.sync-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-    .sync-id {
-      font-weight: bold;
-    }
+.sync-item.failed {
+  border-left: 5px solid #e74c3c;
+}
 
-    .sync-device {
-      color: #666;
-    }
+.sync-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-    .sync-timestamp {
-      color: #666;
-      font-size: 14px;
-    }
+.sync-id {
+  font-weight: bold;
+  color: #2980b9;
+}
 
-    .sync-details {
-      display: grid;
-      gap: 15px;
-    }
+.sync-device {
+  color: #95a5a6;
+  font-size: 14px;
+}
 
-    .sync-type {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #2c3e50;
-    }
+.sync-timestamp {
+  color: #7f8c8d;
+  font-size: 14px;
+}
 
-    .sync-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 500;
-    }
+.sync-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
 
-    .sync-status.success {
-      color: #27ae60;
-    }
+.sync-type, .sync-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    .sync-status.error {
-      color: #e74c3c;
-    }
+.sync-type i, .sync-status i {
+  font-size: 16px;
+}
 
-    .sync-metrics {
-      display: grid;
-      gap: 8px;
-    }
+.sync-status.success {
+  color: #27ae60;
+}
 
-    .metric {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-    }
+.sync-status.error {
+  color: #e74c3c;
+}
 
-    .metric-label {
-      color: #666;
-    }
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #fdf3f3;
+  border-radius: 6px;
+}
 
-    .metric-value {
-      font-weight: 500;
-    }
+.retry-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-    .error-message {
-      color: #e74c3c;
-      font-size: 14px;
-      padding: 8px;
-      background: #fdf3f2;
-      border-radius: 4px;
-    }
+.retry-btn:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
 
-    .sync-actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .retry-btn {
-      padding: 8px 16px;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-    }
-
-    .retry-btn:hover {
-      background: #c0392b;
-    }
   `]
 })
 export class DeviceSyncComponent {
