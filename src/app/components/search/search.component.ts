@@ -36,7 +36,7 @@ import { NUI } from '../../models/nui.model';
       </div>
 
       <div class="results">
-        <table *ngIf="filteredNUIs.length > 0">
+        <table *ngIf="paginatedNUIs.length > 0">
           <thead>
             <tr>
               <th>NUI</th>
@@ -47,7 +47,7 @@ import { NUI } from '../../models/nui.model';
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let nui of filteredNUIs">
+            <tr *ngFor="let nui of paginatedNUIs">
               <td>{{ nui.id }}</td>
               <td>{{ nui.status }}</td>
               <td>{{ nui.macAddress }}</td>
@@ -57,150 +57,158 @@ import { NUI } from '../../models/nui.model';
           </tbody>
         </table>
         
-        <div *ngIf="filteredNUIs.length === 0" class="no-results">
+        <div *ngIf="paginatedNUIs.length === 0" class="no-results">
           Aucun résultat trouvé
         </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination" *ngIf="filteredNUIs.length > itemsPerPage">
+        <button (click)="changePage(-1)" [disabled]="currentPage === 1">
+          &laquo; Précédent
+        </button>
+        <span>Page {{ currentPage }} / {{ totalPages }}</span>
+        <button (click)="changePage(1)" [disabled]="currentPage === totalPages">
+          Suivant &raquo;
+        </button>
       </div>
     </div>
   `,
   styles: [`
     .search-page {
       padding: 20px 20px 20px 270px;
-  background-color: #f4f6f8;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+      background-color: #f4f6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 28px;
-  color: #2c3e50;
-  margin-bottom: 30px;
-}
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
 
-.search-filters {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 30px;
-}
+    .search-filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
 
-input, select {
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  width: 100%;
-  transition: border 0.3s ease;
-}
+    input, select {
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      transition: border 0.3s ease;
+    }
 
-input:focus, select:focus {
-  border-color: #2980b9;
-  outline: none;
-}
+    input:focus, select:focus {
+      border-color: #2980b9;
+      outline: none;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 30px;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
 
-th, td {
-  padding: 16px;
-  text-align: left;
-  font-size: 16px;
-  border-bottom: 1px solid #eee;
-}
+    th, td {
+      padding: 16px;
+      text-align: left;
+      font-size: 16px;
+      border-bottom: 1px solid #eee;
+    }
 
-th {
-  background-color: #2c3e50;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+    th {
+      background-color: #2c3e50;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
 
-tr:hover {
-  background-color: #f1f1f1;
-  transition: background-color 0.3s ease;
-}
+    tr:hover {
+      background-color: #f1f1f1;
+      transition: background-color 0.3s ease;
+    }
 
-.no-results {
-  text-align: center;
-  padding: 40px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  color: #666;
-  font-size: 18px;
-}
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      color: #666;
+      font-size: 18px;
+    }
 
-.kpi-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
-}
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-.kpi-card {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .pagination button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-.kpi-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+    .pagination button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
 
-.kpi-card h3 {
-  margin: 0;
-  color: #7f8c8d;
-  font-size: 16px;
-  font-weight: 600;
-}
+    .pagination button:hover:not(:disabled) {
+      background-color: #34495e;
+    }
 
-.kpi-card p {
-  margin: 10px 0 0;
-  font-size: 32px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.kpi-card:nth-child(1) p {
-  color: #3498db;
-}
-
-.kpi-card:nth-child(2) p {
-  color: #2ecc71;
-}
-
-.kpi-card:nth-child(3) p {
-  color: #f1c40f;
-}
-
-.kpi-card:nth-child(4) p {
-  color: #e74c3c;
-}
+    .pagination span {
+      font-size: 16px;
+      font-weight: 500;
+    }
   `]
 })
 export class SearchComponent {
   nuis: NUI[] = mockNUIs;
   filteredNUIs: NUI[] = [...this.nuis];
-  
+
   searchTerm = '';
   statusFilter = '';
   locationFilter = '';
 
+  // Pagination
+  currentPage = 1;
+  itemsPerPage = 10;
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredNUIs.length / this.itemsPerPage);
+  }
+
+  get paginatedNUIs(): NUI[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredNUIs.slice(start, end);
+  }
+
   search() {
+    this.currentPage = 1;
     this.filteredNUIs = this.nuis.filter(nui => {
       const matchesSearch = !this.searchTerm || 
         nui.id.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
@@ -214,5 +222,12 @@ export class SearchComponent {
         
       return matchesSearch && matchesStatus && matchesLocation;
     });
+  }
+
+  changePage(direction: number) {
+    const newPage = this.currentPage + direction;
+    if (newPage > 0 && newPage <= this.totalPages) {
+      this.currentPage = newPage;
+    }
   }
 }
