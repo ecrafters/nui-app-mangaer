@@ -116,178 +116,199 @@ import { Device } from '../../models/device.model';
   styles: [`
     .devices-page {
       padding: 20px 20px 20px 270px;
-    }
+  background-color: #f4f6f8;
+  font-family: 'Arial', sans-serif;
+}
 
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
+h1 {
+  text-align: center;
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
 
-    .filters {
-      display: flex;
-      gap: 15px;
-    }
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
 
-    .primary-btn {
-      padding: 8px 16px;
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+.filters {
+  display: flex;
+  gap: 15px;
+}
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 30px;
-    }
+.primary-btn {
+  padding: 8px 16px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
 
-    .stat-card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+.primary-btn:hover {
+  background-color: #27ae60;
+}
 
-    .stat-card h3 {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
 
-    .stat-card p {
-      font-size: 24px;
-      font-weight: bold;
-      color: #2c3e50;
-      margin: 0;
-    }
+.stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
 
-    .devices-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
+.stat-card:hover {
+  transform: translateY(-5px);
+}
 
-    .device-card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+.stat-card h3 {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
 
-    .device-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
+.stat-card p {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
 
-    .device-id {
-      font-weight: bold;
-      font-size: 18px;
-    }
+.devices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
 
-    .status-badge {
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+.device-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    .status-badge.active {
-      background-color: #e8f5e9;
-      color: #2e7d32;
-    }
+.device-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
-    .status-badge.offline {
-      background-color: #fafafa;
-      color: #616161;
-    }
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
 
-    .status-badge.maintenance {
-      background-color: #fff3e0;
-      color: #ef6c00;
-    }
+.device-id {
+  font-size: 18px;
+  font-weight: bold;
+  color: #34495e;
+}
 
-    .device-info {
-      margin-bottom: 20px;
-    }
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
 
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
+.status-badge.active {
+  background-color: #e8f5e9;
+  color: #27ae60;
+}
 
-    .label {
-      color: #666;
-    }
+.status-badge.offline {
+  background-color: #fbeeee;
+  color: #c0392b;
+}
 
-    .device-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 4px;
-    }
+.status-badge.maintenance {
+  background-color: #fff8e1;
+  color: #f39c12;
+}
 
-    .stat {
-      text-align: center;
-    }
+.device-info {
+  margin-bottom: 15px;
+}
 
-    .stat-label {
-      display: block;
-      font-size: 12px;
-      color: #666;
-      margin-bottom: 5px;
-    }
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
 
-    .stat-value {
-      font-size: 18px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
+.label {
+  color: #888;
+  font-weight: bold;
+}
 
-    .has-pending {
-      color: #e74c3c;
-    }
+.device-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
 
-    .device-actions {
-      display: flex;
-      gap: 10px;
-    }
+.stat {
+  text-align: center;
+}
 
-    .action-btn {
-      flex: 1;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 14px;
-      color: #666;
-      transition: all 0.3s ease;
-    }
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
 
-    .action-btn:hover {
-      background: #f8f9fa;
-      border-color: #2c3e50;
-      color: #2c3e50;
-    }
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.device-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #ecf0f1;
+  color: #2c3e50;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.action-btn:hover {
+  background: #bdc3c7;
+  transform: scale(1.05);
+}
+
   `]
 })
 export class DeviceListComponent {
