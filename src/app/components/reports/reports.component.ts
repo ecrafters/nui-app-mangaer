@@ -9,7 +9,7 @@ import { Report, ReportData, ErrorReport } from '../../models/report.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="reports-page">
+    <div class="reports-page astuces">
       <h1>Rapports Dynamiques</h1>
 
       <!-- Filtres -->
