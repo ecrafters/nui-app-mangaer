@@ -41,7 +41,7 @@ import { NUI } from '../../models/nui.model';
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let nui of nuis">
+            <tr *ngFor="let nui of paginatedNUIs">
               <td>{{ nui.id }}</td>
               <td>
                 <span [class]="'status-' + nui.status">
@@ -54,128 +54,175 @@ import { NUI } from '../../models/nui.model';
           </tbody>
         </table>
       </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button (click)="changePage(-1)" [disabled]="currentPage === 1">&laquo; Précédent</button>
+        <span>Page {{ currentPage }} / {{ totalPages }}</span>
+        <button (click)="changePage(1)" [disabled]="currentPage === totalPages">Suivant &raquo;</button>
+      </div>
     </div>
   `,
   styles: [`
     .dashboard {
       padding: 20px 20px 20px 270px;
-  background-color: #f4f6f8;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+      background-color: #f4f6f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #2c3e50;
-}
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
 
-.kpi-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 40px;
-}
+    .kpi-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
 
-.kpi-card {
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .kpi-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.kpi-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+    .kpi-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-.kpi-card h3 {
-  margin: 0;
-  color: #7f8c8d;
-  font-size: 16px;
-  font-weight: 600;
-}
+    .kpi-card h3 {
+      margin: 0;
+      color: #7f8c8d;
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-.kpi-card p {
-  margin: 10px 0 0;
-  font-size: 32px;
-  font-weight: bold;
-  color: #2c3e50;
-}
+    .kpi-card p {
+      margin: 10px 0 0;
+      font-size: 32px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
 
-.kpi-card:nth-child(1) p {
-  color: #3498db; /* Bleu */
-}
+    .table-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-top: 20px;
+    }
 
-.kpi-card:nth-child(2) p {
-  color: #2ecc71; /* Vert */
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-.kpi-card:nth-child(3) p {
-  color: #f1c40f; /* Jaune */
-}
+    th, td {
+      padding: 15px;
+      text-align: left;
+    }
 
-.kpi-card:nth-child(4) p {
-  color: #e74c3c; /* Rouge */
-}
+    th {
+      background-color: #2c3e50;
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+    }
 
-.table-container {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin-top: 20px;
-}
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    tr:hover {
+      background-color: #f1f1f1;
+      transition: background-color 0.3s ease;
+    }
 
-th, td {
-  padding: 15px;
-  text-align: left;
-}
+    .status-assigned {
+      color: #27ae60;
+      font-weight: bold;
+    }
 
-th {
-  background-color: #2c3e50;
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  position: sticky;
-  top: 0;
-}
+    .status-pending {
+      color: #f39c12;
+      font-weight: bold;
+    }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+    .status-invalid {
+      color: #c0392b;
+      font-weight: bold;
+    }
 
-tr:hover {
-  background-color: #f1f1f1;
-  transition: background-color 0.3s ease;
-}
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-.status-assigned {
-  color: #27ae60;
-  font-weight: bold;
-}
+    .pagination button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #2c3e50;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-.status-pending {
-  color: #f39c12;
-  font-weight: bold;
-}
+    .pagination button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
 
-.status-invalid {
-  color: #c0392b;
-  font-weight: bold;
-}
+    .pagination button:hover:not(:disabled) {
+      background-color: #34495e;
+    }
 
+    .pagination span {
+      font-size: 16px;
+      font-weight: 500;
+    }
   `]
 })
 export class DashboardComponent {
   nuis: NUI[] = mockNUIs;
+
+  // Pagination variables
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  // Méthode pour récupérer les NUIs de la page actuelle
+  get paginatedNUIs(): NUI[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.nuis.slice(startIndex, endIndex);
+  }
+
+  // Nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.nuis.length / this.itemsPerPage);
+  }
+
+  // Changer de page
+  changePage(direction: number) {
+    const newPage = this.currentPage + direction;
+    if (newPage > 0 && newPage <= this.totalPages) {
+      this.currentPage = newPage;
+    }
+  }
 
   getStatusCount(status: 'assigned' | 'pending' | 'invalid'): number {
     return this.nuis.filter(nui => nui.status === status).length;
