@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   template: `
     <aside class="sidebar">
       <div class="logo">
-        <h1>NUI Manager</h1>
+        <h1>MSAS NUI Manager</h1>
       </div>
       <nav class="nav-menu">
         <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
@@ -46,7 +46,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     .sidebar {
       width: 250px;
       height: 100vh;
-      background-color: #2c3e50;
+      background-color: rgb(221, 62, 62);
       color: white;
       padding: 20px;
       position: fixed;
@@ -93,7 +93,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
     
     .nav-link:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: black;
     }
     
     .nav-link.active {
