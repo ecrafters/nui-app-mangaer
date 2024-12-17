@@ -4,7 +4,7 @@ export const mockNUIs: NUI[] = [
   {
     id: 'SN2 763 NY 988 U',
     status: 'assigned',
-    assignmentDate: new Date('2024-01-04'),
+    assignmentDate: new Date('2024-11-04'),
     macAddress: '00:6C:57:45:2C:DB',
     location: 'Louga',
     user: 'Ibrahima Sarr',
@@ -19,7 +19,7 @@ export const mockNUIs: NUI[] = [
   {
     id: 'SN2 875 OD 643 L',
     status: 'assigned',
-    assignmentDate: new Date('2024-01-20'),
+    assignmentDate: new Date('2024-12-20'),
     macAddress: '00:7F:78:EF:76:77',
     location: 'Matam',
     user: 'Moussa Ndiaye',
@@ -34,13 +34,13 @@ export const mockNUIs: NUI[] = [
   {
     id: 'SN1 970 MX 591 Y',
     status: 'assigned',
-    assignmentDate: new Date('2024-01-30'),
+    assignmentDate: new Date('2024-12-30'),
     macAddress: '00:89:4B:B4:83:11',
     location: 'Louga',
     user: 'Moussa Ndiaye',
     history: [
       {
-        date: new Date('2024-01-16'),
+        date: new Date('2024-12-16'),
         action: 'Attribué',
         device: 'Device006'
       }
@@ -115,7 +115,7 @@ export const mockNUIs: NUI[] = [
     user: 'Cheikh Sy',
     history: [
       {
-        date: new Date('2024-01-27'),
+        date: new Date('2024-12-27'),
         action: 'Créé',
         device: 'Device002'
       }
@@ -145,7 +145,7 @@ export const mockNUIs: NUI[] = [
     user: 'Mame Diarra',
     history: [
       {
-        date: new Date('2024-01-19'),
+        date: new Date('2024-12-19'),
         action: 'Invalidé',
         device: 'Device005'
       }
