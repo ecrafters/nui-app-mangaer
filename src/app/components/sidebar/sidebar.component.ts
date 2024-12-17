@@ -46,7 +46,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     .sidebar {
       width: 250px;
       height: 100vh;
-      background-color: rgb(221, 62, 62);
+      background-color: #1c2120;
       color: white;
       padding: 20px;
       position: fixed;
@@ -97,7 +97,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     }
     
     .nav-link.active {
-      background-color: #34495e;
+      background-color: #d00000;
       font-weight: 500;
     }
   `]
